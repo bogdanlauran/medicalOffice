@@ -39,10 +39,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/login*", "/login/**").anonymous()
-                .antMatchers("/resources/**", "/").permitAll()
+                .antMatchers("/resources/**", "/", "/register").permitAll()
                 .antMatchers("/appointment").hasAuthority("ROLE_" + Role.PATIENT.name())
+                .antMatchers("/appointment/{id}/delete").hasAuthority("ROLE_" + Role.DOCTOR.name())
                 .anyRequest().authenticated()
                 .and().csrf().disable()
+                .logout().logoutSuccessUrl("/").and()
                 .formLogin();
 
     }
@@ -94,17 +96,4 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             return true;
         }
     }
-
-/*    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins(crossOrigins)
-                        .allowedMethods("*")
-                        .allowedHeaders("*");
-            }
-        };
-    }*/
 }

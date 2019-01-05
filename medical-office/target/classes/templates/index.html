@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </head>
@@ -18,14 +18,22 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Home</a>
                     </li>
+                    <li th:if="${isPatient}" class="nav-item">
+                        <a class="nav-link" href="/appointment">New Appointment</a>
+                    </li>
+                    <li th:if="!${isAnonymous}" class="nav-item">
+                        <a class="nav-link" href="/my-appointments">My Appointments</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
                     <li th:if="!${isAnonymous}" class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
-                    <li th:if="!${isAnonymous}" class="nav-item">
-                        <a class="nav-link" href="/appointment">New Appointment</a>
-                    </li>
                     <li th:if="${isAnonymous}" class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li th:if="${isAnonymous}" class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
                     </li>
                 </ul>
             </div>
