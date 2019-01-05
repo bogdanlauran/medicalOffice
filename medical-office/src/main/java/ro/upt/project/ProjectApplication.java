@@ -17,7 +17,7 @@ public class ProjectApplication {
         SpringApplication.run(ProjectApplication.class, args);
     }
 }
-
+/*
 @Component
 class asdasdd {
     private final UserRepository userRepository;
@@ -60,3 +60,4 @@ class asdasdd {
         userRepository.save(user3);
     }
 }
+*/

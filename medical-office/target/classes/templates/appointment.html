@@ -8,9 +8,7 @@
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
-
-    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -21,15 +19,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/appointment">New Appointment</a>
+                    <a class="nav-link" href="/">Back</a>
                 </li>
             </ul>
         </div>
@@ -37,72 +29,13 @@
     </div>
 </nav>
 
-
-
 <div class="container">
     <h2 class="mt-5">Appointment</h2>
 
     <form th:action="@{/appointment}" th:object="${appointment}" method="post">
-        <div class="container">
-            <div class="row">
-                <div class='col-sm-3'>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" th:field="*{time}"/>
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    $(function () {
-                        var bindDatePicker = function() {
-                            $(".date").datetimepicker({
-                                format:'YYYY-MM-DD',
-                                icons: {
-                                    time: "fa fa-clock-o",
-                                    date: "fa fa-calendar",
-                                    up: "fa fa-arrow-up",
-                                    down: "fa fa-arrow-down"
-                                }
-                            }).find('input:first').on("blur",function () {
-                                // check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
-                                // update the format if it's yyyy-mm-dd
-                                var date = parseDate($(this).val());
-
-                                if (! isValidDate(date)) {
-                                    //create date based on momentjs (we have that)
-                                    date = moment().format('YYYY-MM-DD');
-                                }
-
-                                $(this).val(date);
-                            });
-                        }
-
-                        var isValidDate = function(value, format) {
-                            format = format || false;
-                            // lets parse the date to the best of our knowledge
-                            if (format) {
-                                value = parseDate(value);
-                            }
-
-                            var timestamp = Date.parse(value);
-
-                            return isNaN(timestamp) == false;
-                        }
-
-                        var parseDate = function(value) {
-                            var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
-                            if (m)
-                                value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
-
-                            return value;
-                        }
-
-                        bindDatePicker();
-                    });
-                </script>
-            </div>
+        <div class="form-group">
+            <label>Choose a date</label>
+            <input class="form-control" type="datetime-local" th:field="*{time}" />
         </div>
 
         <div class="form-group">
@@ -115,6 +48,10 @@
         <div class="form-group">
             <label>Details</label>
             <textarea class="form-control" rows="3" th:field="*{details}"></textarea>
+        </div>
+
+        <div class="row">
+            <button class="btn btn-primary col-2 mx-auto" type="submit">Create</button>
         </div>
     </form>
 </div>
